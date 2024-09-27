@@ -139,7 +139,7 @@ function startTimer(ms) {
 
             progressBtn.textContent = 'Unlock Progress 3/4';      
             
-            tellerText.innerHTML = '<div class="teller">Do: <div class="underlined" id="tellerTextID">Watch Time Needed: '+(watch_time_minutes + 2)+' : 00  Minutes<br>(Do Watch the Video Straight or it will restart)</div></div>'; 
+            tellerText.innerHTML = '<div class="teller">Do: <div class="underlined" id="tellerTextID">Watch Time Needed: '+(watch_time_minutes =(watch_time_minutes / 60) + 2)+' : 00  Minutes<br>(Do Watch the Video Straight or it will restart)</div></div>'; 
 
             //enabling the next Task
             //must disabled
