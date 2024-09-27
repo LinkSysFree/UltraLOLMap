@@ -16,7 +16,11 @@ let isDocumentHidden = false;
 let like_time_second = 3;
 let share_time_second = 5;
 let subscribe_time_second = 3;
-let watch_time_minutes = 8;//secondsinminute * minutes
+
+let assigned_minutes = 10;
+let watch_time_minutes = 60 * assigned_minutes;//secondsinminute * minutes
+
+//-----------------------------------------------
 
 let window_to_watch = "https://youtu.be/tmZ83z71PDQ?si=PicuArprGPhTWDxL";//link of the video
 
@@ -29,7 +33,7 @@ let filepath_zip = "projects/assets/download_zip/"+name_of_zip;
 let minutes = 0;
 let seconds = 0;
 
-let ms = 0;
+const ms = 1000;
 
 let startCounting = true;
 
@@ -47,15 +51,12 @@ document.addEventListener('visibilitychange', function() {
     }
 });
 
+
 function startTimer(ms) {
     timerInterval = setInterval(() => {
       if (!isDocumentHidden) {
         if(startCounting){
-          seconds = seconds+1; // Increment the global variable
-          if(seconds == 60){
-            minutes++;
-            seconds = 0;
-          }  
+          seconds++; // Increment the global variable
         }
           printLastTimeRecorded(); // Move this here to log updated values
       } else {
@@ -151,9 +152,8 @@ function startTimer(ms) {
 
         // If executed then Youtube Watch is done LASTLY
         // Depends on how much time the video is
-        if (minutes >= watch_time_minutes && (identifier === 'watch')) {
+        if (seconds >= watch_time_minutes && (identifier === 'watch')) {
             printLastTimeRecorded();
-            stopTime();
            
             watchButtonA.style.backgroundColor = 'green';
             watchButtonA.style.color = 'black';
@@ -211,7 +211,7 @@ function redirectToYtToLike() {
     resetTime();
     linkForLikeShareWatch();
     identifier = 'like';
-    ms = 1000; //millisecond
+
     startTimer(ms);
     
     checker = 'doneLike';
@@ -225,7 +225,6 @@ function redirectToYtToShare() {
     resetTime();
     linkForLikeShareWatch();
 
-    ms = 999999999;//millisecond
     identifier = 'share';
     startTimer(ms);
 
@@ -242,7 +241,6 @@ function redirectToYtToSubscribe() {
    window.open('https://www.youtube.com/@dream_mlbb');
     identifier = 'subscribe';
     
-    ms = 999999999;
     startTimer(ms);
 
     checker = 'doneSubscribe';
@@ -259,7 +257,6 @@ function redirectToYtToWatch() {
 
     identifier = 'watch';
 
-    ms = 999999999;
     startTimer(ms);
   }
 }
